@@ -184,6 +184,47 @@ $ vue add router
 $ npm i axios
 ```
 
-* CORS policy 알아보기
+* CORS(Cross-Origin Resource Sharing) policy 알아보기
   1. 브라우저에서 다른 도메인으로 요청 보낼 수 없게 만들어놓았다.
   2. Policy(CORS) - 서버가!
+
+### Django server에서 CORS 설정하기
+
+```
+$ pip install django-cors-headers
+$ pip freeze > requirements.txt
+```
+
+* [django github **django-cors-headers** ](https://github.com/adamchainz/django-cors-headers)
+
+* settings에 corsheaders 추가
+
+  ```python
+  INSTALLED_APPS = [
+      ...
+      'corsheaders',
+      ...
+  ]
+  ```
+
+* 미들웨어 순서 중요!
+
+  ```python
+  MIDDLEWARE = [ 
+      ...
+      'corsheaders.middleware.CorsMiddleware',
+      'django.middleware.common.CommonMiddleware',# CommomMiddleware 위에 반드시 추가
+      ...
+  ]
+  ```
+
+  ```
+  # CORS
+  CORS_ORIGIN_ALLOW_ALL = True # 편의상 CORS 모든 도메인에서 허용
+  
+  CORS_ORIGIN_WHITELIST = [
+      # 추후에 배포시 vue에서만 요청 보낼 수 있도록 정의!!
+  ]
+  ```
+
+  
