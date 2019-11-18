@@ -1,18 +1,32 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TodoList/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import axios from 'axios'
+import TodoList from '@/components/TodoList.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    TodoList
+  },
+  data() {
+    // 컴포넌트에서는 반드시 data를 함수로 정의하고, object를 리턴한다.
+    return {
+      todos: [],
+    }
+  },
+  mounted() {
+    // axios 요청
+    axios.get('http://127.0.0.1:8000/api/v1/todos/')
+      .then(response => {
+        console.log(response) // 만약, 오류가 발생하게 되면 ESLint 설정을 package.json에 추가
+      })
   }
 }
 </script>

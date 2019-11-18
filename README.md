@@ -180,3 +180,10 @@ $ vue add router
 > Use history mode for router? (Requires proper server setup for index fallback in production) y
 ```
 
+```shell
+$ npm i axios
+```
+
+* CORS policy 알아보기
+  1. 브라우저에서 다른 도메인으로 요청 보낼 수 없게 만들어놓았다.
+  2. Policy(CORS) - 서버가!
