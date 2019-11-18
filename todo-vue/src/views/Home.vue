@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <TodoList/>
+    <TodoList :todos="todos"/>
   </div>
 </template>
 
@@ -26,6 +26,10 @@ export default {
     axios.get('http://127.0.0.1:8000/api/v1/todos/')
       .then(response => {
         console.log(response) // 만약, 오류가 발생하게 되면 ESLint 설정을 package.json에 추가
+        this.todos = response.data
+      })
+      .catch(error => {
+        console.log(error)
       })
   }
 }
