@@ -72,12 +72,23 @@ $ vue create todo-vue
   * -r : 폴더는 리컬시브 옵션을 줘야한다.
   * 만약 모든 파일을 하고 싶으면 `todo-django/`대신에 `.`를 써주면 된다.
 
-* `todo-django/` git add
+* 장고 커밋
 
-  ```
+  * `todo-django/` 
+
+  ```shell
   # 현재 폴더는 todo-vue-django.
   # git init 했던 최상위 위치
   $ git add todo-django/
+  $ git add .gitignore
+  $ git commit -m 'Django | Init project'
   ```
 
-  
+* Vue 커밋
+
+  ```shell
+  $ git add todo-vue
+  $ git add README.md
+  $ git commit -m 'Vue | init Vue'
+  ```
+
