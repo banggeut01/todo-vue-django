@@ -312,3 +312,30 @@ $ pip freeze > requirements.txt
 
 # 발생 이슈
 
+* django request.POST
+
+  * Form 으로 받아오는것
+
+  * 만약에 뷰(자바 스크립트)에서 객체 형태로 데이터를 넘기면 무조건 request.data로 들어온다.
+
+  * 따라서 request.POST로 받아오려면 자바스크립트에서 FormData Object를 생성해서 넘겨줘야한다.
+
+    ```js
+    const formData = new FormData()
+    formData.append('title', title) // 변수 - 값
+    axios.post('http://127.0.0.1:8000/api/v1/todos/', formData)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    ```
+
+    * formData로 넘겨주면 request.POST와 request.data 두 곳 모두 들어있다.
+    * request.data가 더 범용적
+
+  * request.POST vs request.data
+
+    * request.POST : FormData로 POST 전송이 되었을 때
+    * request.data : FormData로 POST 전송 및 data로 전송 모두
