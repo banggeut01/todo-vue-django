@@ -1,3 +1,34 @@
+
+
+# 시작하기
+
+## 이슈
+
+> Django의 localhost : 8000
+>
+> Vue localhost : 8080
+>
+> Vue -> Django로 axios 요청을 보냈는데 브라우저에서 요청을 거부했다.
+>
+> 기본 정책 때문
+
+* CORS 정책 
+
+  * django가 설정해야함. 
+
+    ```python
+    # settings.py
+    # CORS
+    CORS_ORIGIN_ALLOW_ALL = True # 편의상 CORS 모든 도메인에서 허용
+    CORS_ORIGIN_WHITELIST = [
+        # 추후에 배포시 vue에서만 요청 보낼 수 있도록 정의!!
+    ]
+    ```
+
+  * 헤더에 특정 정보를 담음
+
+## 기본 설치 및 GITHUB 커밋
+
 * vue 설치한 적 없다면 아래와 같이 설치
   * -g : global 옵션
 
@@ -218,7 +249,7 @@ $ pip freeze > requirements.txt
   ]
   ```
 
-  ```
+  ```python
   # CORS
   CORS_ORIGIN_ALLOW_ALL = True # 편의상 CORS 모든 도메인에서 허용
   
@@ -227,4 +258,57 @@ $ pip freeze > requirements.txt
   ]
   ```
 
-  
+
+## 4. Todos axios 요청
+
+1. getTodos 메소드 정의
+
+   ```js
+   // Home.vue
+   getTodos() {
+     // axios 요청
+   axios.get('http://127.0.0.1:8000/api/v1/todos/')
+     .then(response => {
+       console.log(response) // 만약, 오류가 발생하게 되면 ESLint 설정을 package.json에 추가
+       this.todos = response.data
+     })
+     .catch(error => {
+       console.log(error)
+     })
+   }
+   ```
+
+2. mounted에서 호출
+
+   ```js
+   // Home.vue
+   mounted() {
+     this.getTodos()
+   }
+   ```
+
+3. CORS 오류 발생
+
+   * 해결하기 위해서는 django 서버에서 설정이 필요
+
+4. `django-cors-headers` 패키지 활용
+
+   * [Github 참고](https://github.com/adamchainz/django-cors-headers)
+
+   ```shell
+   $ pip install django-cors-headers
+   ```
+
+   * `INSTALLED_APPS`, `MIDDLEWARE` 설정
+   * `CORS_ORIGIN_ALLOW_ALL` : True시 모든 도메인에서 요청 가능
+   * `CORS_ORIGIN_WHITELIST` : 위의 옵션을 False로 하고, 화이트리스트에 직접 도메인 등록
+   * 기타 옵션들도 확인해볼 것
+
+5. Vue에서 다시 요청 보내보기
+
+## 5. TodoForm component를 통해 투두 등록하기
+
+
+
+# 발생 이슈
+
