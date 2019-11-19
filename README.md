@@ -326,7 +326,7 @@ $ pip freeze > requirements.txt
 >
 > 1. 클라이언트(Vue) 로그인 정보(username, password)를 서버(Django)로 전송
 > 2. 서버는 해당 정보를 바탕으로 Token을 발급 및 암호화
-> 3. 클라이언트는 Token을 받아서 매 요청때마다 헤더에 해당 정보를 추가해서 보냄
+> 3. 클라이언트는 Token을 받아서 매 요청때마다 **헤더에 해당 정보를 추가**해서 보냄
 > 4. 서버에서는 매번 Token이 유효한지 확인
 > 5. 클라이언트는 전송된 값을 디코딩하여 사용자 정보 활용
 >
@@ -377,7 +377,43 @@ $ pip freeze > requirements.txt
       this.$session.set('jwt', token)
       ```
 
-      
+### 3) 활용
+
+1. 요청시마다 아래의 `options`을 포함하여 전송
+
+   ```js
+   this.$session.start()
+   const token = this.$session.get('jwt')
+   const options = {
+       headers: {
+           Authorization: `JWT ${token}` // JWT 다음에 공백있음.
+       }
+   }
+   ```
+
+### 4) 사용자 정보 활용
+
+> 사용자 정보를 활용하고 싶다면, token을 디코딩하여 활용한다.
+
+1. 패키지 설치
+
+   ```bash
+   $ npm i jwt-decode
+   ```
+
+2. 활용
+
+   ```js
+   import jwtDecode from 'jwt-decode'
+   this.$session.start()
+   const token = this.$session.get('jwt')
+   console.log(jwtDecode(token))
+   // {user_id: 1, username: "park", exp: 1574218391, email: "genie121110@gmail.com"}
+   ```
+
+## 7. User별 Todo
+
+
 
 # 발생 이슈
 
