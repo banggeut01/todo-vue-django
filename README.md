@@ -4,6 +4,8 @@
 
 ## 이슈
 
+### CORS
+
 > Django의 localhost : 8000
 >
 > Vue localhost : 8080
@@ -26,6 +28,16 @@
     ```
 
   * 헤더에 특정 정보를 담음
+
+### 로그인
+
+> Vue는 Django에게 로그인정보-JWT(username, password) 요청
+>
+> Django는 Vue에게 JWT (user 정보가 들어있음)를 보냄
+
+* 웹 토큰이 한번 털리면 만료 전까지 계속 활용할 수 있다.
+* 그렇기 때문에 세션 만료기간을 짧게 한다.
+* 또한 토큰 길이가 길면 토큰을 주고 받을 때 네크워크가 좋지않은 환경에서는 안좋은 성능 초래할 수 있음
 
 ## 기본 설치 및 GITHUB 커밋
 
@@ -324,7 +336,9 @@ $ pip freeze > requirements.txt
 >
 > https://jwt.io/에서 직접 디코딩을 해볼 수 있다.
 
-https://jpadilla.github.io/django-rest-framework-jwt/
+[JWT 참고](https://jpadilla.github.io/django-rest-framework-jwt/)
+
+
 
 ### 1) Django
 
@@ -334,6 +348,23 @@ $ pip freeze > requirements.txt
 ```
 
 
+
+* vue-session
+
+```bash
+$ npm i vue-session
+```
+
+[Vue Session github 참고](https://github.com/victorsferreira/vue-session)
+
+* `main.js` 에서 뷰 세션 넣어주기
+
+  ```js
+  import VueSession from 'vue-session'
+  Vue.use(VueSession)
+  ```
+
+  
 
 # 발생 이슈
 
