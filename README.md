@@ -347,24 +347,37 @@ $ pip install djangorestframework-jwt
 $ pip freeze > requirements.txt
 ```
 
+### 2) Vue
 
+1. 로그인 관련 컴포넌트 생성
 
-* vue-session
+2. 이벤트를 통해 axios 요청
 
-```bash
-$ npm i vue-session
-```
+3. token 값 저장
 
-[Vue Session github 참고](https://github.com/victorsferreira/vue-session)
+   1. `vue-session`
 
-* `main.js` 에서 뷰 세션 넣어주기
+      * [Vue Session github 참고](https://github.com/victorsferreira/vue-session)
 
-  ```js
-  import VueSession from 'vue-session'
-  Vue.use(VueSession)
-  ```
+      ```bash
+      $ npm i vue-session
+      ```
 
-  
+   2. `src/main.js`
+
+      ```js
+      import VueSession from 'vue-session'
+      Vue.use(VueSession)
+      ```
+
+   3. `vue-session` 활용하여 저장
+
+      ```js
+      this.$session.start()
+      this.$session.set('jwt', token)
+      ```
+
+      
 
 # 발생 이슈
 
