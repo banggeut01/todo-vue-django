@@ -6,7 +6,8 @@
           v-for="todo in todos" 
           :key="todo.id"
           >
-              {{ todo.title }}
+            {{ todo.title }}
+            <button></button>
           </li>
       </ul>
   </div>
