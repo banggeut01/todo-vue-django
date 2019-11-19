@@ -413,7 +413,18 @@ $ pip freeze > requirements.txt
 
 ## 7. User별 Todo
 
+### 1. Django
 
+### 2. Vue
+
+## 8. 비로그인시 로그인 페이지로 이동
+
+* Cf. 뷰 라이프사이클
+  * [뷰 라이프사이클 공식문서 참고](https://kr.vuejs.org/v2/guide/instance.html)
+  * created 
+  * mounted : 렌더링 되는 시점. ($el)이 연결되는 시점. DOM이랑 연결되는 시점.
+  * updated : mounted된 상태에서 data가 업데이트 될 때마다 이벤트에서 훅을 걸 고 싶을때.
+  * destroyed : 마지막
 
 # 발생 이슈
 
