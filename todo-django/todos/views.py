@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
+from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from .models import Todo
-from .serializers import TodoSerializers
+from .serializers import TodoSerializers, UserSerializers
 # Create your views here.
 
 # GET /todos/ : 전체 todos
@@ -21,3 +22,10 @@ def todo_index_create(request):
         if serializers.is_valid(raise_exception=True):
             serializers.save()
             return Response(serializers.data)
+
+@api_view(['GET'])
+def user_detail(request, id):
+    user = get_user_model()
+    user = get_object_or_404(User, pk=id)
+    serializers = UserSerializers(user)
+    return Response(serializers.data)
