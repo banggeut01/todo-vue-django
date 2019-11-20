@@ -455,4 +455,25 @@ $ pip freeze > requirements.txt
 
     * request.POST : FormData로 POST 전송이 되었을 때
     * request.data : FormData로 POST 전송 및 data로 전송 모두
+  
+  
 
+# Vuex
+
+* **써야하는 이유?**
+
+
+
+# ETC
+
+## input Form에서 변경사항 이벤트
+
+* input form 변경사항에 대해 이벤트 달아줄 때 `click`이 아닌 `change`
+* `click`으로 하면 click되기전 상태
+
+## HTTP request method
+
+* GET - 가지고 오는 것 : data X
+* POST - 등록/저장 : data O
+* PUT - 수정 : data O
+* DELETE - 삭제 : data X, 리소스(url)
