@@ -29,6 +29,7 @@ export default {
   methods: {
     logout() {
       this.$session.destroy()
+      this.$store.dispatch('logout')
       router.push('/login')
     }
   },

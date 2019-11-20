@@ -40,6 +40,8 @@ export default {
             const token = response.data.token
             this.$session.start()
             this.$session.set('jwt', token)
+            // vuex actions 호출 -> dispatch
+            this.$store.dispatch('login', token)
             router.push('/') // redirect랑 동일 '/' 이 경로로 가버려
         })
         .catch(error => {

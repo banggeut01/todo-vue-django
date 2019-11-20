@@ -426,6 +426,111 @@ $ pip freeze > requirements.txt
   * updated : mounted된 상태에서 data가 업데이트 될 때마다 이벤트에서 훅을 걸 고 싶을때.
   * destroyed : 마지막
 
+## 9. 
+
+## 10. Vuex
+
+> Vuex는 vue에서 활용하는 상태 관리 패턴이다.
+
+### 핵심 개념
+
+1. `state` : 상태, Vue 컴포넌트 상에서 `data`(의 역할을 하는 것)
+
+   * 직접 변경이 불가능하고, 항상 `mutation`을 통해 변경한다.
+   * `state`가 변경되면 view(화면)가 업데이트 된다.
+
+2. `mutation` : `state`를 변경하기 위한 일종의 `methods`
+
+   * `mutation` 함수는 첫번째 인자로 항상 `state`를 받는다.
+   * `mutation` 함수는 항상 `commit`을 통해 호출된다.
+
+3. `action` : 비동기 처리를 하는 `methods`이면서 `mutation`도 호출 가능하다. (`state` 변화를 `mutation` `commit`을 통해 가능하다.)
+
+   * `action` 함수는 첫번째 인자로 항상 `context`를 받는다.
+     * `state`, `commit`, `dispatch`, ,,,
+   * `action`함수는 항상 `dispatch`를 통해 호출된다.
+
+   * 비동기 - action, 동기 - mutation
+   * 물론 action은 동기적 처리도 가능하다.
+   * axios, promise는 action
+
+4. `getters` (게터스) : Vue component 상에서의 `computed`와 유사개념
+
+   * 일반적인 `state` 값을 활용하는 변수의 경우 `getters`에 정의한다.
+
+### Vuex 활용
+
+```bash
+$ npm i vuex
+$ vue add vuex
+? Still proceed? > y
+
+     src/store/index.js
+     package-lock.json
+     package.json
+     src/main.js # import store from '.store'
+     # (변경 사항들)
+     
+```
+
+* store > index.js
+
+  * 7~12 line 주석
+
+    ```js
+    import Vue from 'vue'
+    import Vuex from 'vuex'
+    import auth from './modules/auth' // auth 모듈 추가
+    
+    Vue.use(Vuex)
+    
+    export default new Vuex.Store({
+      // state: {
+      // },
+      // mutations: {
+      // },
+      // actions: {
+      // },
+      modules: {
+        auth // 모듈 추가
+      }
+    })
+    
+    ```
+
+* store > modules 폴더 생성 후 > auth.js
+
+  * 토큰 따로 관리하기
+
+  * 기본 구조
+
+    ```js
+    const state = {
+    
+    }
+    
+    const mutations = {
+    
+    }
+    
+    const actions = {
+    
+    }
+    
+    const getters = {
+    
+    }
+    
+    export default {
+        state,
+        mutations,
+        actions,
+        getters
+    }
+    ```
+
+    
+
 # 발생 이슈
 
 * django request.POST
@@ -455,14 +560,46 @@ $ pip freeze > requirements.txt
 
     * request.POST : FormData로 POST 전송이 되었을 때
     * request.data : FormData로 POST 전송 및 data로 전송 모두
-  
-  
+
+## token
+
+> token 모든 컴포넌트마다 아래와 같이 가져와 쓰고 있다.
+
+```js
+this.$session.start()
+const token = this.$session.get('jwt')
+const options = {
+    headers: {
+        Authorization: `JWT ${token}` 
+    }
+```
+
+> 또한 컴포넌트간 데이터 이동시
+>
+> 상위 컴포넌트에서 props를 통해 자식으로 데이터 넘겨주고,
+>
+> $emit을 통해 자식에서 부모 컴포넌트로 데이터 전달해주고 있다.
+>
+> 만약, 프로젝트가 커지면 엄청나게 복잡해질 수 있다.
+
+* 해결점1) 이벤트 버스
+  * [비- 부모-자식간-통신 링크 참고](https://kr.vuejs.org/v2/guide/components.html#비-부모-자식간-통신)
+  * 단점 : 복잡한 아키텍처..
+* 해결점2) Flux 아키텍처
+  * 페이스북에서 만든 구조
+  * flux 아키텍처를 활용한 **Vuex**
+    * ex) MVC 아키텍처 따르는 django
 
 # Vuex
 
 * **써야하는 이유?**
 
+### Vuex의 핵심 컨셉 (상태관리)
 
+* state : data
+* mutations(변이): 상태들을 변화시키는 것. methods
+* actions : methods(비동기)
+* getters : computed
 
 # ETC
 
@@ -477,3 +614,24 @@ $ pip freeze > requirements.txt
 * POST - 등록/저장 : data O
 * PUT - 수정 : data O
 * DELETE - 삭제 : data X, 리소스(url)
+
+## git commit 메시지 수정
+
+```bash
+$ git commit --amend
+# vi 편집창에서 수정 후 :wq (저장 후 나가기)
+```
+
+* 만약 git push 한 상태에서는 커밋 메시지 수정 후 아래와 같이 push
+
+  ```bash
+  $ git push -f origin master
+  ```
+
+  
+
+## vue 커리큘럼
+
+* props/emit
+* eventbus
+* vuex
